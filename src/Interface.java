@@ -4,18 +4,18 @@ import javax.swing.*;
 import java.util.HashMap;
 
 class MainWindow extends JFrame {
-    CardLayout cardLayout;
-    JPanel mainPanel;
-    HashMap<String, AppPanel> appPanels;
+    private CardLayout cardLayout;
+    private JPanel mainPanel;
+    private HashMap<String, AppPanel> appPanels;
 
-    LaunchPanel launchPanel;
-    ServerModePanel serverModePanel;
-    ClientModePanel clientModePanel;
-    ChatPanel chatPanel;
-    ConnectionClosedPanel connectionClosedPanel;
-    ErrorPanel errorPanel;
+    public LaunchPanel launchPanel;
+    public ServerModePanel serverModePanel;
+    public ClientModePanel clientModePanel;
+    public ChatPanel chatPanel;
+    public ConnectionClosedPanel connectionClosedPanel;
+    public ErrorPanel errorPanel;
 
-    GridBagConstraints sgbc;
+    public GridBagConstraints sgbc;
 
     public MainWindow(String title) {
         super(title);
@@ -114,7 +114,7 @@ class AppPanel extends JPanel {
 class PanelChange implements Runnable, ActionListener {
     // Used to call App.mainWin.changePanel() when changing a panel needs to be done through an action listener for a button, or a runnable for SwingUtilities.invokeLater()
 
-    String panelName;
+    private String panelName;
 
     public PanelChange(String name) {
         panelName = name;
@@ -363,7 +363,7 @@ class ChatPanel extends AppPanel implements Runnable {
             public void actionPerformed(ActionEvent e) {
                 String message = messageField.getText();
                 App.connection.send("M:" + message);
-                display(String.format("You: %s\n", message));
+                display(String.format("You: %s", message));
                 messageField.setText("");
             }
         });
@@ -426,7 +426,7 @@ class ChatPanel extends AppPanel implements Runnable {
         while (!App.connection.recvQueue.isEmpty()) {
             message = App.connection.recvQueue.poll();
 
-            display(String.format("%s: %s\n", App.connection.displayName, message));
+            display(String.format("%s: %s", App.connection.displayName, message));
         }
     }
 
@@ -434,7 +434,7 @@ class ChatPanel extends AppPanel implements Runnable {
         int length = message.length();
 
         if (length < LINELENGTH) {
-            messagesArea.append(message);
+            messagesArea.append(message + "\n");
         } else {
             int displayed = 0;
             String segment;

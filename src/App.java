@@ -4,9 +4,9 @@ import java.net.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class App {
-    static MainWindow mainWin;
+    public static MainWindow mainWin;
 
-    static Connection connection;
+    public static Connection connection;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
