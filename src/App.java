@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.io.*;
 import java.net.*;
+import java.text.ParseException;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class App {
@@ -76,6 +77,8 @@ class Connection extends Thread {
 
         //Receive messages
         try {
+            String invalidMessage = "Invalid message format";
+            
             String message;
             char type;
             String body;
@@ -87,7 +90,7 @@ class Connection extends Thread {
                     if (ended) {
                         break;
                     } else {
-                        throw new IllegalStateException("Invalid message format");
+                        throw new ParseException(invalidMessage, 0);
                     }
                 }
 
@@ -111,11 +114,11 @@ class Connection extends Thread {
                                 }
                                 break;
                             default:
-                                throw new IllegalStateException("Invalid message format");
+                                throw new ParseException(invalidMessage, 2);
                         }
                         break;
                     default:
-                        throw new IllegalStateException("Invalid message format");
+                        throw new ParseException(invalidMessage, 0);
                 }
             }
         } catch (Exception e) {
